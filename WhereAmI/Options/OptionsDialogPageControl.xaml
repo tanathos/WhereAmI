@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="WhereAmI.Options.OptionsDialogPageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300"
+             d:DesignWidth="300">
+    <Grid Height="112" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Padding="5"
+            Text="Basic configurations" />
+        <TextBox x:Name="txtColorFileName" HorizontalAlignment="Left" Margin="97,10,0,13" Grid.Row="1" TextWrapping="Wrap" Width="91" Height="20"/>
+        <Label Content="Filename Color" HorizontalAlignment="Left" Margin="3,5,0,0" Grid.Row="1" VerticalAlignment="Top" Height="23" Width="89"/>
+    </Grid>
+</UserControl>

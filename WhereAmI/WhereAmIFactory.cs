@@ -20,7 +20,7 @@ namespace Recoding.WhereAmI
         /// </summary>
         [Export(typeof(AdornmentLayerDefinition))]
         [Name("WhereAmIAdornment")]
-        [Order(After = PredefinedAdornmentLayers.Caret)]
+        [Order(After = PredefinedAdornmentLayers.Outlining)]
         public AdornmentLayerDefinition editorAdornmentLayer = null;
 
         /// <summary>
