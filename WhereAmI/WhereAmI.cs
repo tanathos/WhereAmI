@@ -45,7 +45,7 @@ namespace Recoding.WhereAmI
 
             
             // Brush penBrush = new SolidColorBrush(new System.Windows.Media.Color() { A = Settings.Default.Color.A, B = Settings.Default.Color.B, G = Settings.Default.Color.G, R = Settings.Default.Color.R });
-            Brush penBrush = new SolidColorBrush(Color.FromArgb(255,255,255,255));
+            Brush penBrush = new SolidColorBrush(Color.FromRgb(255,255,255));
 
             _text.FontFamily = new FontFamily("Consolas");
             _text.FontSize = 40;

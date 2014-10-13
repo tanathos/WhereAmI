@@ -8,6 +8,7 @@ using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
+using WhereAmI.Options;
 
 namespace Recoding.WhereAmI
 {
@@ -28,6 +29,7 @@ namespace Recoding.WhereAmI
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [Guid(GuidList.guidWhereAmIPkgString)]
+    [ProvideOptionPage(typeof(OptionsDialogPage), "WhereAmI", "General", 0, 0, supportsAutomation: true)]
     public sealed class WhereAmIPackage : Package
     {
         /// <summary>
