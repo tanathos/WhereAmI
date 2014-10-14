@@ -23,13 +23,16 @@ namespace Recoding.WhereAmI
         [Order(After = PredefinedAdornmentLayers.Outlining)]
         public AdornmentLayerDefinition editorAdornmentLayer = null;
 
+        [Import]
+        internal IWhereAmISettings Settings { get; set; }
+
         /// <summary>
         /// Instantiates a WhereAmI manager when a textView is created.
         /// </summary>
         /// <param name="textView">The <see cref="IWpfTextView"/> upon which the adornment should be placed</param>
         public void TextViewCreated(IWpfTextView textView)
         {
-            new WhereAmIAdornment(textView);
+            new WhereAmIAdornment(textView, Settings);
         }
     }
     #endregion //Adornment Factory

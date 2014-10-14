@@ -17,20 +17,29 @@ namespace Recoding.WhereAmI
     class WhereAmIAdornment
     {
         private TextBlock _fileName;
+        private TextBlock _folderStructure;
         private TextBlock _projectName;
+
         private IWpfTextView _view;
         private IAdornmentLayer _adornmentLayer;
+
+        /// <summary>
+        /// Settings of the extension, injected by the provider
+        /// </summary>
+        readonly IWhereAmISettings _settings;
 
         /// <summary>
         /// Creates a square image and attaches an event handler to the layout changed event that
         /// adds the the square in the upper right-hand corner of the TextView via the adornment layer
         /// </summary>
         /// <param name="view">The <see cref="IWpfTextView"/> upon which the adornment will be drawn</param>
-        public WhereAmIAdornment(IWpfTextView view)
+        public WhereAmIAdornment(IWpfTextView view, IWhereAmISettings settings)
         {
             _view = view;
+            _settings = settings;
 
             _fileName = new TextBlock();
+            _folderStructure = new TextBlock();
             _projectName = new TextBlock();
 
             ITextDocument textDoc;
@@ -57,32 +66,37 @@ namespace Recoding.WhereAmI
                 string projectName = proj.Name;
 
                 _fileName.Text = fileName;
+                _folderStructure.Text = GetFolderDiffs(textDoc.FilePath, proj.FullName);
                 _projectName.Text = projectName;
             }
 
             // Write the textes
-            Brush fileNameBrush = new SolidColorBrush(Color.FromRgb(39,39,39));
-
+            Brush fileNameBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.FilenameColor));
             _fileName.FontFamily = new FontFamily("Consolas");
             _fileName.FontSize = 70;
             _fileName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             _fileName.TextAlignment = System.Windows.TextAlignment.Right;
             _fileName.Foreground = fileNameBrush;
 
+            Brush foldersBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.FoldersColor));
+            _folderStructure.FontFamily = new FontFamily("Consolas");
+            _folderStructure.FontSize = 54;
+            _folderStructure.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+            _folderStructure.TextAlignment = System.Windows.TextAlignment.Right;
+            _folderStructure.Foreground = foldersBrush;
 
-            Brush projectNameBrush = new SolidColorBrush(Color.FromRgb(34, 34, 34));
-
+            Brush projectNameBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.ProjectColor));
             _projectName.FontFamily = new FontFamily("Consolas");
             _projectName.FontSize = 54;
             _projectName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
             _projectName.TextAlignment = System.Windows.TextAlignment.Right;
             _projectName.Foreground = projectNameBrush;
- 
 
 
             // Force to have an ActualWidth
             System.Windows.Rect finalRect = new System.Windows.Rect();
             _fileName.Arrange(finalRect);
+            _folderStructure.Arrange(finalRect);
             _projectName.Arrange(finalRect);
 
             //Grab a reference to the adornment layer that this adornment should be added to
@@ -101,11 +115,15 @@ namespace Recoding.WhereAmI
             Canvas.SetLeft(_fileName, _view.ViewportRight - (_fileName.ActualWidth + 15));
             Canvas.SetTop(_fileName, _view.ViewportTop + 15);
 
+            Canvas.SetLeft(_folderStructure, _view.ViewportRight - (_folderStructure.ActualWidth + 15));
+            Canvas.SetTop(_folderStructure, _view.ViewportTop + _fileName.ActualHeight);
+
             Canvas.SetLeft(_projectName, _view.ViewportRight - (_projectName.ActualWidth + 15));
-            Canvas.SetTop(_projectName, _view.ViewportTop + 82);
+            Canvas.SetTop(_projectName, _view.ViewportTop + (_fileName.ActualHeight + _folderStructure.ActualHeight));
 
             // Place the textes in the layer
             _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _fileName, null);
+            _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _folderStructure, null);
             _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _projectName, null);
         }
 
@@ -128,6 +146,18 @@ namespace Recoding.WhereAmI
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Given 2 absolute paths, returns the difference in folder structure.
+        /// (The first should be nested in the second)
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="folderPath"></param>
+        /// <returns></returns>
+        private static string GetFolderDiffs(string filePath, string folderPath) 
+        {
+            return System.IO.Path.GetDirectoryName(filePath).Replace(System.IO.Path.GetDirectoryName(folderPath), "").Replace("\\", "/").ToLower();
         }
     }
 }
