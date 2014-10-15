@@ -31,6 +31,14 @@ namespace WhereAmI.Options
             optionsDialogControl.txtColorFileName.Text = settings.FilenameColor;
             optionsDialogControl.txtFoldersColor.Text = settings.FoldersColor;
             optionsDialogControl.txtProjectColor.Text = settings.ProjectColor;
+
+            optionsDialogControl.txtFilenameSize.Text = settings.FilenameSize.ToString();
+            optionsDialogControl.txtFoldersSize.Text = settings.FoldersSize.ToString();
+            optionsDialogControl.txtProjectSize.Text = settings.ProjectSize.ToString();
+
+            optionsDialogControl.chkFilename.IsChecked = settings.ViewFilename;
+            optionsDialogControl.chkFolders.IsChecked = settings.ViewFolders;
+            optionsDialogControl.chkProject.IsChecked = settings.ViewProject;
         }
 
         protected override void OnApply(PageApplyEventArgs args)
@@ -40,7 +48,30 @@ namespace WhereAmI.Options
                 var componentModel = (IComponentModel)(Site.GetService(typeof(SComponentModel)));
                 IWhereAmISettings settings = componentModel.DefaultExportProvider.GetExportedValue<IWhereAmISettings>();
 
+                // TODO: hex validation
                 settings.FilenameColor = optionsDialogControl.txtColorFileName.Text;
+                settings.FoldersColor = optionsDialogControl.txtFoldersColor.Text;
+                settings.ProjectColor = optionsDialogControl.txtProjectColor.Text;
+
+                double d = settings.FilenameSize;
+                if (Double.TryParse(optionsDialogControl.txtFilenameSize.Text, out d)) 
+                {
+                    settings.FilenameSize = d;
+                }
+
+                d = settings.FoldersSize;
+                if (Double.TryParse(optionsDialogControl.txtFoldersSize.Text, out d))
+                {
+                    settings.FoldersSize = d;
+                }
+
+                d = settings.ProjectSize;
+                if (Double.TryParse(optionsDialogControl.txtProjectSize.Text, out d))
+                {
+                    settings.ProjectSize = d;
+                }
+
+                // TODO: visibility
 
                 settings.Store();
             }

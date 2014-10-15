@@ -42,6 +42,21 @@ namespace Recoding.WhereAmI
         bool ViewProject { get; set; }
 
         /// <summary>
+        /// The size of the text for the filename
+        /// </summary>
+        double FilenameSize { get; set; }
+
+        /// <summary>
+        /// The size of the text for the folders
+        /// </summary>
+        double FoldersSize { get; set; }
+
+        /// <summary>
+        /// The size of the text for the project
+        /// </summary>
+        double ProjectSize { get; set; }
+
+        /// <summary>
         /// Performs the store of the instance of this interface to the user's settings
         /// </summary>
         void Store();

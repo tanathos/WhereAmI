@@ -19,12 +19,21 @@
             Grid.Row="0"
             Padding="5"
             Text="Basic configurations" FontWeight="Bold" />
-        <TextBox x:Name="txtColorFileName" HorizontalAlignment="Left" Margin="89,13,0,10" Grid.Row="1" TextWrapping="Wrap" Width="91" Height="23
+        <TextBox x:Name="txtColorFileName" HorizontalAlignment="Left" Margin="130,13,0,10" Grid.Row="1" TextWrapping="Wrap" Width="68" Height="23
                  "/>
-        <Label Content="Filename Color" HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="23" Width="89"/>
-        <Label Content="Folders Color" HorizontalAlignment="Left" Margin="0,4,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtFoldersColor" HorizontalAlignment="Left" Height="23" Margin="89,7,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="91"/>
-        <Label Content="Project Color" HorizontalAlignment="Left" Margin="0,4,0,0" Grid.Row="4" VerticalAlignment="Top" Width="89"/>
-        <TextBox x:Name="txtProjectColor" HorizontalAlignment="Left" Height="23" Margin="89,7,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="91"/>
+        <Label Content="Color" HorizontalAlignment="Left" Margin="87,13,0,0" Grid.Row="1" VerticalAlignment="Top" Height="23" Width="38"/>
+        <Label Content="Color" HorizontalAlignment="Left" Margin="87,4,0,0" Grid.Row="2" VerticalAlignment="Top" Width="38"/>
+        <TextBox x:Name="txtFoldersColor" HorizontalAlignment="Left" Height="23" Margin="130,7,0,0" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="68"/>
+        <Label Content="Color" HorizontalAlignment="Left" Margin="87,4,0,0" Grid.Row="4" VerticalAlignment="Top" Width="38"/>
+        <TextBox x:Name="txtProjectColor" HorizontalAlignment="Left" Height="23" Margin="130,7,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="68"/>
+        <CheckBox x:Name="chkFilename" Content="Filename" HorizontalAlignment="Left" Margin="10,19,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="chkFilename_Checked" Unchecked="chkFilename_Unchecked"/>
+        <CheckBox x:Name="chkFolders" Content="Folders" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" Checked="chkFolders_Checked" Unchecked="chkFolders_Unchecked"/>
+        <CheckBox x:Name="chkProject" Content="Project" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Checked="chkProject_Checked" Unchecked="chkProject_Unchecked"/>
+        <TextBox x:Name="txtFilenameSize" HorizontalAlignment="Left" Height="23" Margin="239,13,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+        <Label Content="Size" HorizontalAlignment="Left" Margin="208,13,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtFoldersSize" HorizontalAlignment="Left" Height="23" Margin="239,7,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+        <TextBox x:Name="txtProjectSize" HorizontalAlignment="Left" Height="23" Margin="239,7,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+        <Label Content="Size" HorizontalAlignment="Left" Margin="208,4,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+        <Label Content="Size" HorizontalAlignment="Left" Margin="208,4,0,0" Grid.Row="4" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

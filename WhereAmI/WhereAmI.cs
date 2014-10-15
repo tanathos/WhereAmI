@@ -65,32 +65,42 @@ namespace Recoding.WhereAmI
                 Project proj = GetContainingProject(fileName);
                 string projectName = proj.Name;
 
-                _fileName.Text = fileName;
-                _folderStructure.Text = GetFolderDiffs(textDoc.FilePath, proj.FullName);
-                _projectName.Text = projectName;
+                if (_settings.ViewFilename) 
+                {
+                    _fileName.Text = fileName;
+
+                    Brush fileNameBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.FilenameColor));
+                    _fileName.FontFamily = new FontFamily("Consolas");
+                    _fileName.FontSize = _settings.FilenameSize;
+                    _fileName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                    _fileName.TextAlignment = System.Windows.TextAlignment.Right;
+                    _fileName.Foreground = fileNameBrush;
+                }
+
+                if (_settings.ViewFolders) 
+                {
+                    _folderStructure.Text = GetFolderDiffs(textDoc.FilePath, proj.FullName);
+
+                    Brush foldersBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.FoldersColor));
+                    _folderStructure.FontFamily = new FontFamily("Consolas");
+                    _folderStructure.FontSize = _settings.FoldersSize;
+                    _folderStructure.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                    _folderStructure.TextAlignment = System.Windows.TextAlignment.Right;
+                    _folderStructure.Foreground = foldersBrush;
+                }
+
+                if (_settings.ViewProject) 
+                {
+                    _projectName.Text = projectName;
+
+                    Brush projectNameBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.ProjectColor));
+                    _projectName.FontFamily = new FontFamily("Consolas");
+                    _projectName.FontSize = _settings.ProjectSize;
+                    _projectName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
+                    _projectName.TextAlignment = System.Windows.TextAlignment.Right;
+                    _projectName.Foreground = projectNameBrush;
+                }
             }
-
-            // Write the textes
-            Brush fileNameBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.FilenameColor));
-            _fileName.FontFamily = new FontFamily("Consolas");
-            _fileName.FontSize = 70;
-            _fileName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            _fileName.TextAlignment = System.Windows.TextAlignment.Right;
-            _fileName.Foreground = fileNameBrush;
-
-            Brush foldersBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.FoldersColor));
-            _folderStructure.FontFamily = new FontFamily("Consolas");
-            _folderStructure.FontSize = 54;
-            _folderStructure.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            _folderStructure.TextAlignment = System.Windows.TextAlignment.Right;
-            _folderStructure.Foreground = foldersBrush;
-
-            Brush projectNameBrush = (SolidColorBrush)(new BrushConverter().ConvertFrom(_settings.ProjectColor));
-            _projectName.FontFamily = new FontFamily("Consolas");
-            _projectName.FontSize = 54;
-            _projectName.HorizontalAlignment = System.Windows.HorizontalAlignment.Right;
-            _projectName.TextAlignment = System.Windows.TextAlignment.Right;
-            _projectName.Foreground = projectNameBrush;
 
 
             // Force to have an ActualWidth
@@ -157,7 +167,10 @@ namespace Recoding.WhereAmI
         /// <returns></returns>
         private static string GetFolderDiffs(string filePath, string folderPath) 
         {
-            return System.IO.Path.GetDirectoryName(filePath).Replace(System.IO.Path.GetDirectoryName(folderPath), "").Replace("\\", "/").ToLower();
+            if (!String.IsNullOrEmpty(folderPath))
+                return System.IO.Path.GetDirectoryName(filePath).Replace(System.IO.Path.GetDirectoryName(folderPath), "").Replace("\\", "/").ToLower();
+
+            return "";
         }
     }
 }
