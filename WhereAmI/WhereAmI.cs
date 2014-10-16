@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.Shell;
 using EnvDTE;
 using Microsoft.Internal.VisualStudio.PlatformUI;
+using System.ComponentModel.Composition;
 // using WhereAmI.Options;
 
 namespace Recoding.WhereAmI
@@ -120,21 +121,39 @@ namespace Recoding.WhereAmI
         {
             _adornmentLayer.RemoveAllAdornments();
             _adornmentLayer.Opacity = 1;
-            
-            // Place the textes in the appropriate position
-            Canvas.SetLeft(_fileName, _view.ViewportRight - (_fileName.ActualWidth + 15));
-            Canvas.SetTop(_fileName, _view.ViewportTop + 15);
 
-            Canvas.SetLeft(_folderStructure, _view.ViewportRight - (_folderStructure.ActualWidth + 15));
-            Canvas.SetTop(_folderStructure, _view.ViewportTop + _fileName.ActualHeight);
-
-            Canvas.SetLeft(_projectName, _view.ViewportRight - (_projectName.ActualWidth + 15));
-            Canvas.SetTop(_projectName, _view.ViewportTop + (_fileName.ActualHeight + _folderStructure.ActualHeight));
+            double foldersTopOffset = _view.ViewportTop;
+            double projectTopOffset = _view.ViewportTop;
 
             // Place the textes in the layer
-            _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _fileName, null);
-            _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _folderStructure, null);
-            _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _projectName, null);
+            if (_settings.ViewFilename) 
+            {
+                Canvas.SetLeft(_fileName, _view.ViewportRight - (_fileName.ActualWidth + 15));
+                Canvas.SetTop(_fileName, _view.ViewportTop + 15);
+
+                _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _fileName, null);
+
+                foldersTopOffset += _fileName.ActualHeight;
+                projectTopOffset += _fileName.ActualHeight;
+            }
+
+            if (_settings.ViewFolders)
+            {
+                Canvas.SetLeft(_folderStructure, _view.ViewportRight - (_folderStructure.ActualWidth + 15));
+                Canvas.SetTop(_folderStructure, foldersTopOffset);
+
+                _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _folderStructure, null);
+
+                projectTopOffset += _folderStructure.ActualHeight;
+            }
+
+            if (_settings.ViewProject)
+            {
+                Canvas.SetLeft(_projectName, _view.ViewportRight - (_projectName.ActualWidth + 15));
+                Canvas.SetTop(_projectName, projectTopOffset);
+
+                _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _projectName, null);
+            }
         }
 
         /// <summary>

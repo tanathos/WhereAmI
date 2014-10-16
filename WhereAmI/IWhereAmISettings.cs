@@ -60,5 +60,7 @@ namespace Recoding.WhereAmI
         /// Performs the store of the instance of this interface to the user's settings
         /// </summary>
         void Store();
+
+        void Defaults();
     }
 }

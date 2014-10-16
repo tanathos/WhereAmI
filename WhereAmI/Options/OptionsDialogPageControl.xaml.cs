@@ -3,6 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.VisualStudio.Shell;
+using Recoding.WhereAmI;
+using Microsoft.VisualStudio.ComponentModelHost;
+using System.ComponentModel.Composition;
 
 namespace WhereAmI.Options
 {
@@ -11,20 +14,12 @@ namespace WhereAmI.Options
     /// </summary>
     public partial class OptionsDialogPageControl : UserControl
     {
-        public OptionsDialogPageControl()
+        UIElementDialogPage _page;
+
+        public OptionsDialogPageControl(UIElementDialogPage page)
         {
+            _page = page;
             InitializeComponent();
-
-            // encouragements.AddHandler(UIElementDialogPage.DialogKeyPendingEvent, new RoutedEventHandler(OnDialogKeyPendingEvent));
-        }
-
-        void OnDialogKeyPendingEvent(object sender, RoutedEventArgs e)
-        {
-            var args = e as DialogKeyEventArgs;
-            if (args != null && args.Key == Key.Enter)
-            {
-                e.Handled = true;
-            }
         }
 
         private void chkFilename_Checked(object sender, RoutedEventArgs e)
@@ -61,6 +56,11 @@ namespace WhereAmI.Options
         {
             txtProjectColor.IsEnabled = false;
             txtProjectSize.IsEnabled = false;
+        }
+
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            _page.ResetSettings();
         }
 
         //public string Encouragements

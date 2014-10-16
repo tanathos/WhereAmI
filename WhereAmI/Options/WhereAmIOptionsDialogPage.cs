@@ -16,18 +16,27 @@ namespace WhereAmI.Options
     {
         OptionsDialogPageControl optionsDialogControl;
 
-        protected override UIElement Child
+        IWhereAmISettings settings 
         {
-            get { return optionsDialogControl ?? (optionsDialogControl = new OptionsDialogPageControl()); }
+            get 
+            {
+                var componentModel = (IComponentModel)(Site.GetService(typeof(SComponentModel)));
+                IWhereAmISettings s = componentModel.DefaultExportProvider.GetExportedValue<IWhereAmISettings>();
+
+                return s;
+            }
         }
 
-        protected override void OnActivate(CancelEventArgs e)
+        protected override UIElement Child
         {
-            base.OnActivate(e);
+            get 
+            {
+                return optionsDialogControl ?? (optionsDialogControl = new OptionsDialogPageControl(this)); 
+            }
+        }
 
-            var componentModel = (IComponentModel)(Site.GetService(typeof(SComponentModel)));
-            IWhereAmISettings settings = componentModel.DefaultExportProvider.GetExportedValue<IWhereAmISettings>();
-
+        private void BindSettings() 
+        {
             optionsDialogControl.txtColorFileName.Text = settings.FilenameColor;
             optionsDialogControl.txtFoldersColor.Text = settings.FoldersColor;
             optionsDialogControl.txtProjectColor.Text = settings.ProjectColor;
@@ -41,13 +50,25 @@ namespace WhereAmI.Options
             optionsDialogControl.chkProject.IsChecked = settings.ViewProject;
         }
 
+        public override void ResetSettings()
+        {
+            settings.Defaults();
+            BindSettings();
+
+            base.ResetSettings();
+        }
+
+        protected override void OnActivate(CancelEventArgs e)
+        {
+            base.OnActivate(e);
+
+            BindSettings();
+        }
+
         protected override void OnApply(PageApplyEventArgs args)
         {
             if (args.ApplyBehavior == ApplyKind.Apply)
             {
-                var componentModel = (IComponentModel)(Site.GetService(typeof(SComponentModel)));
-                IWhereAmISettings settings = componentModel.DefaultExportProvider.GetExportedValue<IWhereAmISettings>();
-
                 // TODO: hex validation
                 settings.FilenameColor = optionsDialogControl.txtColorFileName.Text;
                 settings.FoldersColor = optionsDialogControl.txtFoldersColor.Text;
@@ -71,7 +92,9 @@ namespace WhereAmI.Options
                     settings.ProjectSize = d;
                 }
 
-                // TODO: visibility
+                settings.ViewFilename = optionsDialogControl.chkFilename.IsChecked.Value;
+                settings.ViewFolders = optionsDialogControl.chkFolders.IsChecked.Value;
+                settings.ViewProject = optionsDialogControl.chkProject.IsChecked.Value;
 
                 settings.Store();
             }

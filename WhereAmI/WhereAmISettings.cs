@@ -21,12 +21,15 @@ namespace Recoding.WhereAmI
         /// </summary>
         readonly WritableSettingsStore writableSettingsStore;
 
-        // private readonly ThemeManager classificationColorManager = null;
-
         const string CollectionPath = "WhereAmI";
 
+        public WhereAmISettings()
+        {
+
+        }
+
         [ImportingConstructor]
-        public WhereAmISettings(SVsServiceProvider vsServiceProvider)
+        public WhereAmISettings(SVsServiceProvider vsServiceProvider) : this()
         {
             var shellSettingsManager = new ShellSettingsManager(vsServiceProvider);
             writableSettingsStore = shellSettingsManager.GetWritableSettingsStore(SettingsScope.UserSettings);
@@ -35,13 +38,13 @@ namespace Recoding.WhereAmI
         }
 
         public string FilenameColor { get { return _FilenameColor; } set { _FilenameColor = value; } }
-        private string _FilenameColor = "#303030";
+        private string _FilenameColor;
 
         public string FoldersColor { get { return _FoldersColor; } set { _FoldersColor = value; } }
-        private string _FoldersColor = "#282828";
+        private string _FoldersColor;
 
         public string ProjectColor { get { return _ProjectColor; } set { _ProjectColor = value; } }
-        private string _ProjectColor = "#282828";
+        private string _ProjectColor;
 
         public bool ViewFilename { get { return _ViewFilename; } set { _ViewFilename = value; } }
         private bool _ViewFilename = true;
@@ -53,13 +56,13 @@ namespace Recoding.WhereAmI
         private bool _ViewProject = true;
 
         public double FilenameSize { get { return _FilenameSize; } set { _FilenameSize = value; } }
-        private double _FilenameSize = 70;
+        private double _FilenameSize;
 
         public double FoldersSize { get { return _FoldersSize; } set { _FoldersSize = value; } }
-        private double _FoldersSize = 54;
+        private double _FoldersSize;
 
         public double ProjectSize { get { return _ProjectSize; } set { _ProjectSize = value; } }
-        private double _ProjectSize = 54;
+        private double _ProjectSize;
 
         public void Store() 
         {
@@ -88,10 +91,36 @@ namespace Recoding.WhereAmI
             }
         }
 
+        public void Defaults() 
+        {
+            writableSettingsStore.DeleteCollection(CollectionPath);
+            LoadSettings();
+        }
+
         private void LoadSettings()
         {
             try
             {
+                _FilenameSize = 70;
+                _FoldersSize = _ProjectSize = 54;
+
+                string visualStudioThemeId = writableSettingsStore.GetString("General", "CurrentTheme");
+
+                switch (visualStudioThemeId)
+                {
+                    case "de3dbbcd-f642-433c-8353-8f1df4370aba": // Light
+                    case "a4d6a176-b948-4b29-8c66-53c97a1ed7d0": // Blue
+                        _FilenameColor = "#eaeaea";
+                        _FoldersColor = _ProjectColor = "#f3f3f3";
+                        break;
+
+                    case "1ded0138-47ce-435e-84ef-9ec1f439b749": // Dark
+                    default:
+                        _FilenameColor = "#303030";
+                        _FoldersColor = _ProjectColor = "#282828";
+                        break;
+                }
+
                 if (writableSettingsStore.PropertyExists(CollectionPath, "FilenameColor"))
                 {
                     this.FilenameColor = writableSettingsStore.GetString(CollectionPath, "FilenameColor", this.FilenameColor);

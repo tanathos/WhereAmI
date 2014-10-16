@@ -35,5 +35,6 @@
         <TextBox x:Name="txtProjectSize" HorizontalAlignment="Left" Height="23" Margin="239,7,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
         <Label Content="Size" HorizontalAlignment="Left" Margin="208,4,0,0" Grid.Row="2" VerticalAlignment="Top"/>
         <Label Content="Size" HorizontalAlignment="Left" Margin="208,4,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+        <Button x:Name="btnReset" Content="Reset to default for this theme" HorizontalAlignment="Left" Margin="10,10,0,-10" Grid.Row="5" VerticalAlignment="Top" Width="280" Click="btnReset_Click"/>
     </Grid>
 </UserControl>
