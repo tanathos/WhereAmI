@@ -62,11 +62,5 @@ namespace WhereAmI.Options
         {
             _page.ResetSettings();
         }
-
-        //public string Encouragements
-        //{
-        //    get { return encouragements.Text; }
-        //    set { encouragements.Text = value; }
-        //}
     }
 }
