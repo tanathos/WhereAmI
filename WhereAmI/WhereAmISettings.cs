@@ -101,8 +101,8 @@ namespace Recoding.WhereAmI
         {
             try
             {
-                _FilenameSize = 70;
-                _FoldersSize = _ProjectSize = 54;
+                _FilenameSize = 60;
+                _FoldersSize = _ProjectSize = 52;
 
                 string visualStudioThemeId = writableSettingsStore.GetString("General", "CurrentTheme");
 

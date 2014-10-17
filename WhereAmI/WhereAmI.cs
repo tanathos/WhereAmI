@@ -129,7 +129,7 @@ namespace Recoding.WhereAmI
             if (_settings.ViewFilename) 
             {
                 Canvas.SetLeft(_fileName, _view.ViewportRight - (_fileName.ActualWidth + 15));
-                Canvas.SetTop(_fileName, _view.ViewportTop + 15);
+                Canvas.SetTop(_fileName, _view.ViewportTop + 5);
 
                 _adornmentLayer.AddAdornment(AdornmentPositioningBehavior.ViewportRelative, null, null, _fileName, null);
 
