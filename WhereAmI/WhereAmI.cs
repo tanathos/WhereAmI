@@ -139,7 +139,7 @@ namespace Recoding.WhereAmI
                 projectTopOffset += _fileName.ActualHeight;
             }
 
-            if (_settings.ViewFolders)
+            if (_settings.ViewFolders && !String.IsNullOrEmpty(_folderStructure.Text))
             {
                 Canvas.SetLeft(_folderStructure, _view.ViewportRight - (_folderStructure.ActualWidth + 15));
                 Canvas.SetTop(_folderStructure, foldersTopOffset);
