@@ -1,0 +1,9 @@
+﻿WhereAmI - Changelog
+--------------------
+
+1.0.2 - Fixed a bug on VS refactoring
+		Changed the way folders line are managed (empty folder will not render a line)
+
+1.0.1 - Added icons
+
+1.0.0 - Initial version

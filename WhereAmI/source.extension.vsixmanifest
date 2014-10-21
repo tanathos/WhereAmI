@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="bc5921ff-f09d-44f7-a81f-898e0db311ce" Version="1.0.1" Language="en-US" Publisher="Recoding" />
+    <Identity Id="bc5921ff-f09d-44f7-a81f-898e0db311ce" Version="1.0.2" Language="en-US" Publisher="Recoding" />
     <DisplayName>WhereAmI</DisplayName>
     <Description xml:space="preserve">Helps developers who get lost in the code</Description>
     <License>LICENSE.txt</License>
+    <ReleaseNotes>changelog.txt</ReleaseNotes>
     <Icon>Resources/logo.png</Icon>
     <PreviewImage>Resources/preview.png</PreviewImage>
     <Tags>editor, decoration</Tags>
