@@ -99,28 +99,33 @@ namespace Recoding.WhereAmI
 
         private void LoadSettings()
         {
+            // Default values
+            _FilenameSize = 60;
+            _FoldersSize = _ProjectSize = 52;
+
+            _FilenameColor = "#eaeaea";
+            _FoldersColor = _ProjectColor = "#f3f3f3";
+
             try
             {
-                _FilenameSize = 60;
-                _FoldersSize = _ProjectSize = 52;
-
+                // Retrieve the Id of the current theme used in VS from user's settings
                 string visualStudioThemeId = writableSettingsStore.GetString("General", "CurrentTheme");
 
                 switch (visualStudioThemeId)
                 {
                     case "de3dbbcd-f642-433c-8353-8f1df4370aba": // Light
                     case "a4d6a176-b948-4b29-8c66-53c97a1ed7d0": // Blue
-                        _FilenameColor = "#eaeaea";
-                        _FoldersColor = _ProjectColor = "#f3f3f3";
+                    default:
+                        // Just use the defaults
                         break;
 
                     case "1ded0138-47ce-435e-84ef-9ec1f439b749": // Dark
-                    default:
                         _FilenameColor = "#303030";
                         _FoldersColor = _ProjectColor = "#282828";
                         break;
                 }
 
+                // Tries to retrieve the configurations if previously saved
                 if (writableSettingsStore.PropertyExists(CollectionPath, "FilenameColor"))
                 {
                     this.FilenameColor = writableSettingsStore.GetString(CollectionPath, "FilenameColor", this.FilenameColor);
