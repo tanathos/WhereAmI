@@ -1,6 +1,8 @@
 ﻿WhereAmI - Changelog
 --------------------
 
+1.1.0 - Added compatibility with VS2012 (thanks to http://stackoverflow.com/users/424226/mark from SO!)
+
 1.0.3 - Fix for a potential bug on settings read
 
 1.0.2 - Fixed a bug on VS refactoring

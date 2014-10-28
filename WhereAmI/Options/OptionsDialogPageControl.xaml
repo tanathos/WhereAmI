@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300"
-             d:DesignWidth="300">
+             d:DesignHeight="300" Width="335.333">
     <Grid Height="Auto" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
@@ -36,5 +35,6 @@
         <Label Content="Size" HorizontalAlignment="Left" Margin="208,4,0,0" Grid.Row="2" VerticalAlignment="Top"/>
         <Label Content="Size" HorizontalAlignment="Left" Margin="208,4,0,0" Grid.Row="4" VerticalAlignment="Top"/>
         <Button x:Name="btnReset" Content="Reset to default for this theme" HorizontalAlignment="Left" Margin="10,10,0,-10" Grid.Row="5" VerticalAlignment="Top" Width="280" Click="btnReset_Click"/>
+        <Label Content="(you need to reopen the editor windows in order to see the changes)" HorizontalAlignment="Left" Margin="10,35,0,-15" Grid.Row="5" VerticalAlignment="Top" Width="325" FontSize="9" Foreground="#FF131313"/>
     </Grid>
 </UserControl>
