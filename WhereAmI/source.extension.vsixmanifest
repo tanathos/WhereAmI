@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="bc5921ff-f09d-44f7-a81f-898e0db311ce" Version="1.1.0" Language="en-US" Publisher="Recoding" />
+    <Identity Id="bc5921ff-f09d-44f7-a81f-898e0db311ce" Version="1.1.1" Language="en-US" Publisher="Recoding" />
     <DisplayName>WhereAmI</DisplayName>
     <Description xml:space="preserve">Helps developers who get lost in the code</Description>
     <License>LICENSE.txt</License>
@@ -16,7 +16,6 @@
   </Installation>
   <Dependencies>
     <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    <Dependency Id="Microsoft.VisualStudio.MPF" DisplayName="Visual Studio MPF" d:Source="Installed" Version="[11.0,12.0)" />
   </Dependencies>
   <Assets>
     <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
