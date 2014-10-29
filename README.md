@@ -1,7 +1,7 @@
 WhereAmI
 ========
 
-VS2013 Extension to help developers who get lost in their code.
+Extension for VS2013 and 2012 to help developers who get lost in the code.
 
 It adds some informations on the background of the file in edit to recap the name, the folder position and the project name in which you're working.
 
